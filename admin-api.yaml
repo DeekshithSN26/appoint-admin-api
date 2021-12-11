@@ -10,6 +10,7 @@
     - name: "http"
       port: 5050
       targetPort: 5050
+      nodePort: 30003
     selector:
       app: "admin-api" 
 ---  
