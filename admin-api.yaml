@@ -1,0 +1,37 @@
+  apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: "admin-api"
+    name: "adminapi"
+  spec:
+    type: NodePort
+    ports:
+    - name: "http"
+      port: 5050
+      targetPort: 5050
+    selector:
+      app: "admin-api" 
+---  
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: "admin-api"
+    labels: 
+      app: admin-api
+  spec:
+    replicas: 1
+    selector:
+        matchLabels:
+          app: "admin-api"
+    template:
+      metadata:
+        labels:
+          app: admin-api
+      spec:
+        containers:
+          - name: "admin-api"
+            image: "deekshithsn/adminapi"
+            imagePullPolicy: "IfNotPresent"
+            ports:
+              - containerPort: 5050
